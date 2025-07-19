@@ -11,7 +11,8 @@ from uuid import UUID, uuid4
 from attrs import define, field
 from typing import Optional
 from mltracker.exceptions import Conflict
-from mltracker.adapters.default.models import Models
+from mltracker.adapters.tinydb.models import Models
+
 
 @define
 class Experiment:
@@ -27,39 +28,10 @@ class Experiment:
     def __hash__(self):
         return hash(self.id)
 
-
-class Experiments:
-    def __init__(self):
-        self.collection = set[Experiment]()
-
-    def create(self, name: str) -> Experiment:
-        if any(experiment.name == name for experiment in self.collection):
-            raise Conflict(f"Experiment '{name}' already exists")
-
-        experiment = Experiment(
-            id=uuid4(),
-            name=name,
-            models=Models()
-        )        
-
-        self.collection.add(experiment)
-        return experiment
-    
-
-    def read(self, name: str) -> Optional[Experiment]: 
-        return next(
-            (experiment for experiment in self.collection if experiment.name == name),
-            None
-        )
-
-
-
-
 class Experiments:
     def __init__(self, database: TinyDB):
         self.database = database
         self.table = self.database.table('experiments')    
-        
     
     @override
     def create(self, name: str) -> Experiment:
@@ -70,20 +42,14 @@ class Experiments:
         return Experiment(
             id=id, 
             name=name,  
-        )
-    
+            models=Models(self.database, name)
+        ) 
 
     @override    
     def read(self, name) -> Optional[Experiment]: 
         data = self.table.get(where('name') == name)  
         return Experiment(
             id=UUID(data['id']),
-            name=data['name'],  
+            name=data['name'],   
+            models=Models(self.database, name)
         ) if data else None
-    
-
-    @override
-    def update(self, id: UUID, name: str) -> Experiment:
-        self.table.update({'name': name}, where('id') == str(id))
-        return Experiment(
-            id=id, 

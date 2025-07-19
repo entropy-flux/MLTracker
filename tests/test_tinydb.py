@@ -1,10 +1,14 @@
+import os
 from pytest import fixture
 from mltracker import getallexperiments
 from mltracker.ports import Experiments
 
 @fixture(scope='function')
-def experiments() -> Experiments:
-    return getallexperiments()
+def experiments() -> Experiments: 
+    db_path = 'data/db.json'
+    if os.path.exists(db_path):
+        os.remove(db_path)
+    return getallexperiments(backend='tinydb')
 
 def test_experiments(experiments: Experiments):
     experiment = experiments.create('test')
@@ -26,8 +30,9 @@ def test_models(experiments: Experiments):
     model = experiment.models.read('1234')
     assert model.epoch == 3
     model = experiment.models.read('12345')
-    assert model.epoch == 0
+    assert model.epoch == 0 
 
+    
 def test_metrics(experiments: Experiments):
     experiment = experiments.create('test')
     model = experiment.models.create('1234', 'mlp-classifier')
@@ -36,6 +41,7 @@ def test_metrics(experiments: Experiments):
 
     list = model.metrics.list()
     assert len(list) == 2
+
 
 def test_modules(experiments: Experiments):
     experiment = experiments.create('test')
