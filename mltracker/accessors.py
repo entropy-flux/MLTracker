@@ -16,12 +16,12 @@ def getallexperiments(*, backend: Literal['default', 'tinydb'] = 'default') -> E
         return TinyDBExperrimentsCollection(database)
 
 def getexperiment(name: str, *, backend: Literal['default', 'tinydb'] = 'default') -> Experiment:
-    collection = getallexperiments(backend)
+    collection = getallexperiments(backend=backend)
     experiment = collection.read(name)
     if not experiment:
         experiment = collection.create(name)
     return experiment
 
 def getallmodels(experiment: str,*, backend: Literal['default', 'tinydb'] = 'default') -> Models:
-    owner = getexperiment(experiment, backend)
+    owner = getexperiment(experiment, backend=backend)
     return owner.models
