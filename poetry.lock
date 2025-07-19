@@ -110,7 +110,23 @@ pygments = ">=2.7.2"
 [package.extras]
 dev = ["argcomplete", "attrs (>=19.2)", "hypothesis (>=3.56)", "mock", "requests", "setuptools", "xmlschema"]
 
+[[package]]
+name = "tinydb"
+version = "3.15.2"
+description = "TinyDB is a tiny, document oriented database optimized for your happiness :)"
+optional = true
+python-versions = "*"
+groups = ["main"]
+markers = "extra == \"tinydb\""
+files = [
+    {file = "tinydb-3.15.2-py2.py3-none-any.whl", hash = "sha256:1087ade5300c47dbf9539d9f6dafd53115bd5e85a67d480d8188bdbfa2d9eaf4"},
+    {file = "tinydb-3.15.2.tar.gz", hash = "sha256:f273d9b6d8b1b5e1d094a6eb8b72851b39b81099293344132c73332b60e3b893"},
+]
+
+[extras]
+tinydb = ["tinydb"]
+
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12"
-content-hash = "ed74df5bba3a0f747a72d43f68b557374cf9a8d9583bd35b67377fd33b9deb4c"
+content-hash = "f636f22d1b3d387a5e086139333438cae957ecead1b09c0be98b0c8942626027"

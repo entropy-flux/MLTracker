@@ -9,7 +9,7 @@ license = {text = "MIT"}
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "attrs (>=25.3.0,<26.0.0)"
+    "attrs (>=25.3.0,<26.0.0)",
 ] 
 
 [project.optional-dependencies]
