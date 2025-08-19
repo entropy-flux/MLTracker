@@ -1,9 +1,9 @@
 [project]
 name = "mltracker"
-version = "0.2.5"
+version = "0.2.6"
 description = "A simple tool for tracking machine learning aggregates and storing their data."
 authors = [
-    {name = "entropy-flux",email = "eric.m.cardozo@gmail.com"}
+    {name = "entropy-flux",email = "eric.hermosis@gmail.com"}
 ]
 license = {text = "MIT"}
 readme = "README.md"
