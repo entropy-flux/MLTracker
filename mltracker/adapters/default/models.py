@@ -69,3 +69,7 @@ class Models:
         
         if model:
             self.collection.remove(model)
+
+
+    def list(self) -> list[Model]: 
+        return list(self.collection)

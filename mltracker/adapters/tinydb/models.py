@@ -98,4 +98,18 @@ class Models(Repository):
 
     @override
     def delete(self, hash: str):
-        self.table.remove(where('hash') == hash)
+        self.table.remove(where('hash') == hash) 
+
+    @override
+    def list(self) -> list[Model]: 
+        models = []
+        for data in self.table.all():
+            models.append(Model(
+                id=UUID(data['id']),
+                name=data['name'],
+                hash=data['hash'],
+                metrics=Metrics(self.database, self.experiment_name, data['name']),
+                modules=Modules(self.database, self.experiment_name, data['name']),
+                table=self.table
+            ))
+        return models
