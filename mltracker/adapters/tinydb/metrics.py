@@ -1,7 +1,6 @@
 from attrs import define 
 from typing import Optional
-from typing import Any 
-from uuid import uuid4
+from typing import Any  
 from typing import Optional, Any, override
 from tinydb import TinyDB, where
 from attrs import define, asdict 

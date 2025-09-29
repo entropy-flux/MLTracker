@@ -3,12 +3,11 @@ from typing import Optional, override
 from tinydb import TinyDB, where
 from tinydb.table import Table
 from attrs import define, field
-
-from mltracker.exceptions import Conflict
+ 
 from mltracker.ports.models import Model, Models as Repository 
 from mltracker.adapters.tinydb.metrics import Metrics
 from mltracker.adapters.tinydb.modules import Modules
-
+from mltracker.adapters.tinydb.iterations import Iterations
 
 @define
 class Model:
@@ -17,6 +16,7 @@ class Model:
     hash: str 
     metrics: Metrics
     modules: Modules 
+    iterations: Iterations
     
     def __eq__(self, __value: object):
         if not isinstance(__value, self.__class__):
@@ -26,9 +26,7 @@ class Model:
     def __hash__(self):
         return hash(self.id) 
 
-
     table: Table
-
 
     @property
     def epoch(self) -> int:
@@ -49,7 +47,7 @@ class Models(Repository):
     @override
     def create(self, hash: str, name: Optional[str] = None) -> Model:
         if self.table.search(where('hash') == hash):
-            raise Conflict(f"Model with hash '{hash}' already exists")
+            raise ValueError(f"Model with hash '{hash}' already exists")
 
         id = uuid4()
         self.table.insert({
@@ -62,7 +60,8 @@ class Models(Repository):
             name=name,
             hash=hash, 
             metrics=Metrics(self.database, self.experiment_name, name),
-            modules=Modules(self.database, self.experiment_name, name),   
+            modules=Modules(self.database, self.experiment_name, name), 
+            iterations=Iterations(self.database, self.experiment_name, name),
             table=self.table
         )
 
@@ -77,6 +76,7 @@ class Models(Repository):
             hash=data['hash'], 
             metrics=Metrics(self.database, self.experiment_name, data['name']),
             modules=Modules(self.database, self.experiment_name, data['name']),
+            iterations=Iterations(self.database, self.experiment_name, data['name']),
             table=self.table
         )
 
@@ -93,12 +93,10 @@ class Models(Repository):
             hash=hash, 
             metrics=Metrics(self.database, self.experiment_name, data['name']),
             modules=Modules(self.database, self.experiment_name, data['name']),
+            iterations=Iterations(self.database, self.experiment_name, data['name']),
             table=self.table
         )
-
-    @override
-    def delete(self, hash: str):
-        self.table.remove(where('hash') == hash) 
+ 
 
     @override
     def list(self) -> list[Model]: 
@@ -110,6 +108,7 @@ class Models(Repository):
                 hash=data['hash'],
                 metrics=Metrics(self.database, self.experiment_name, data['name']),
                 modules=Modules(self.database, self.experiment_name, data['name']),
+                iterations=Iterations(self.database, self.experiment_name, data['name']),
                 table=self.table
             ))
         return models

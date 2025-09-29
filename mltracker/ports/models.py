@@ -6,6 +6,7 @@ from typing import Optional
 
 from mltracker.ports.metrics import Metrics
 from mltracker.ports.modules import Modules
+from mltracker.ports.iterations import Iterations
 
 class Model(Protocol):
 
@@ -41,7 +42,7 @@ class Model(Protocol):
         successive states of the model. 
 
         Returns:
-            str: The epoch of the model.
+            str: The number of epochs that the model have been iterated.
         """
 
     @property
@@ -60,6 +61,23 @@ class Model(Protocol):
         Returns:
             Modules: The modules of the model.
         """
+
+
+    @property
+    def iterations(self) -> Iterations:
+        """
+        Each model owns a collection of iterations that represents discrete steps 
+        in the model's training or evaluation process, typically corresponding to 
+        one epoch.
+
+        This accessor provides management of these iterations, allowing creation,
+        retrieval, and listing of iterations that capture the model's progression
+        over time.
+
+        Returns:
+            Iterations: The collection of iterations for this model.
+        """
+
 
 class Models(ABC):
     

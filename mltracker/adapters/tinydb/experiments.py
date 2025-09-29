@@ -6,13 +6,10 @@ from tinydb import TinyDB, where
 from mltracker.ports.experiments import Experiment
 from mltracker.ports.experiments import Experiments as Repository  
 
-
 from uuid import UUID, uuid4
 from attrs import define, field
-from typing import Optional
-from mltracker.exceptions import Conflict
+from typing import Optional 
 from mltracker.adapters.tinydb.models import Models
-
 
 @define
 class Experiment:
@@ -53,3 +50,5 @@ class Experiments:
             name=data['name'],   
             models=Models(self.database, name)
         ) if data else None
+    
+ 

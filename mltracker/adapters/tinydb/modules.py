@@ -9,9 +9,9 @@ class Module:
 
 
 class Modules:
-    def __init__(self, database: TinyDB, experiment_name: str, model_name: str):
+    def __init__(self, database: TinyDB, experiment_name: str, root_name: str):
         self.database = database
-        self.table = self.database.table(f"{experiment_name}/{model_name}/modules")
+        self.table = self.database.table(f"{experiment_name}/{root_name}/modules")
 
     @override
     def add(self, name: str, arguments: Optional[dict[str, Any]] = None):

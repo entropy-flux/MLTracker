@@ -1,7 +1,6 @@
 from uuid import UUID, uuid4
 from attrs import define, field
-from typing import Optional
-from mltracker.exceptions import Conflict
+from typing import Optional 
 from mltracker.adapters.default.models import Models
 
 @define
@@ -25,7 +24,7 @@ class Experiments:
 
     def create(self, name: str) -> Experiment:
         if any(experiment.name == name for experiment in self.collection):
-            raise Conflict(f"Experiment '{name}' already exists")
+            raise ValueError(f"Experiment '{name}' already exists")
 
         experiment = Experiment(
             id=uuid4(),
