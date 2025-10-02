@@ -1,6 +1,8 @@
 # MLTracker: Lightweight Machine Learning Experiment Tracker
 
-MLTracker is a lightweight library for tracking machine learning experiments, models and metrics. It is a simple data model built on **TinyDB**. I create this for personal use but feel free to use it as you want. 
+MLTracker is a lightweight library for tracking machine learning experiments, models and metrics. It is a simple data model built on **TinyDB**. I create this for personal use but feel free to use it as you want.
+
+📖 Full documentation: [API Reference](https://entropy-flux.github.io/MLTracker)   
 
 ## Installation
 
