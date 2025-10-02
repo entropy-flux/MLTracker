@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Protocol
-from typing import Optional
+from typing import Optional 
 from mltracker.ports.modules import Modules
 
 class Iteration(Protocol):
@@ -14,7 +14,7 @@ class Iteration(Protocol):
     """
 
     @property
-    def epoch(self) -> int:
+    def epoch(self) -> Optional[int]:
         """
         The numeric identifier of this iteration in the training or evaluation
         process. Usually corresponds to the number of passes completed over
@@ -27,44 +27,40 @@ class Iteration(Protocol):
     @property
     def modules(self) -> Modules:
         """
-        Modules specific to this iteration that may be used for training, evaluation,
-        logging, or other auxiliary tasks. These modules are separate from the
-        model’s core modules.
+        An iteration can own a collection of modules not related to the model
+        itself, but to it's training or evaluation process. 
 
         Returns:
-            Modules: The collection of modules associated with this iteration.
-        """  
+            Modules: A collection of modules.
+        """
 
 class Iterations(ABC):
     """
-    A collection of iterations within the lifecycle of a model’s training or evaluation.
+    A collection of iterations within the lifecycle of a model.
     Provides an interface for creating, retrieving, and listing iterations.
     """
 
     @abstractmethod
     def create(self, epoch: int) -> Iteration:
         """
-        Creates a record of an iteration in the database, retrieving
-        an instance of the entity representing it.
+        Adds a record of an iteration in the database with their respective
+        modules and returns it.
 
         Args:
-            epoch (int): The epoch number of the iteration to create.
-
-        Returns:
-            Iteration: The entity representing the created iteration.
-        """
+            epoch (int): The epoch number of the iteration to create. 
+        """ 
 
     @abstractmethod
-    def read(self, epoch: int) -> Optional[Iteration]:
+    def get(self, epoch: int) -> Optional[Iteration]:
         """
-        Retrieves an iteration for a given epoch number if any exists.
+        Retrieves a list of iterations for a given epoch number.
 
         Args:
             epoch (int): The epoch number of the iteration to retrieve.
 
         Returns:
-            Optional[Iteration]: The iteration found if any, otherwise None.
-        """
+            list[Iteration]: The iteration list.
+        """ 
 
     @abstractmethod
     def list(self) -> list[Iteration]:
@@ -73,4 +69,19 @@ class Iterations(ABC):
 
         Returns:
             list[Iteration]: The complete set of iterations.
+        """
+
+    @abstractmethod
+    def remove(self, iteration: Iteration):
+        """
+        Removes an iteration from the collection.
+
+        Args:
+            iteration (Iteration): The iteration to remove.
+        """
+
+    @abstractmethod
+    def clear(self):
+        """
+        Removes all iterations from the collection.
         """

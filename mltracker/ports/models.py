@@ -11,20 +11,12 @@ from mltracker.ports.iterations import Iterations
 class Model(Protocol):
 
     @property
-    def id(self) -> Any:
+    def id(self) -> UUID:
         """A globally unique identifier for the models that can be used for 
         referencing the model outside the experiment namespace. 
 
         Returns:
             Any: The id of the model.
-        """
-
-    @property
-    def name(self) -> str:
-        """A human redable non unique identifier for a model type. 
-
-        Returns:
-            str: The name of the model.
         """
 
     @property
@@ -37,13 +29,27 @@ class Model(Protocol):
         """
 
     @property
-    def epoch(self) -> str:
-        """An epoch is a discrete unit of time that marks a transition between 
+    def name(self) -> Optional[str]:
+        """A human redable non unique identifier for a model type. 
+
+        Returns:
+            Optional[str]: The name of the model if any.
+        """
+
+    @property
+    def epoch(self) -> Optional[int]:
+        """An epoch is a unit of time that marks a transition between 
         successive states of the model. 
 
         Returns:
-            str: The number of epochs that the model have been iterated.
+            Optional[int]: The epochs that the model have been iterated if
+            stored.
         """
+
+    @epoch.setter
+    def epoch(self, value):
+        """Set the epoch of the model to the given value."""
+
 
     @property
     def metrics(self) -> Metrics:
@@ -98,7 +104,7 @@ class Models(ABC):
     @abstractmethod
     def read(self, hash: str) -> Optional[Model]:
         """
-        Retrieves a model for a given hash if any. 
+        Retrieves a model with a given hash if any. 
 
         Args:
             hash (str): The hash of the model. 
@@ -110,9 +116,22 @@ class Models(ABC):
     @abstractmethod
     def update(self, hash: str, name: str):
         """
-        Update the name of a model for a given hash. 
+        Update the name of a model for with the given hash. 
 
         Args:
             hash (str): The hash of the model.
             name (str): The new name of the model.
         """
+
+    @abstractmethod
+    def delete(self, id: Any):
+        """
+        Deletes the experiment with the given ID.
+
+        Args:
+            id (Any): The ID of the model to delete. 
+        """
+
+    @abstractmethod
+    def list(self) -> list[Model]:
+        """Retrieves a list of models."""

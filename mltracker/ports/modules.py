@@ -17,25 +17,29 @@ class Module(Protocol):
         """
 
     @property
-    def arguments(self) -> dict[str, Any]:
+    def attributes(self) -> dict[str, Any]: 
         """
-        Relevant hyperparameters used at initialization of a given module.
+        Returns a dictionary of the module's attributes.
+
+        Attributes provide metadata or configuration details relevant 
+        to the module. Keys should be strings, and values can be of 
+        any type depending on the attribute.
 
         Returns:
-            dict[str, Any]: The arguments with which the module was initialized.
+            dict[str, Any]: A mapping of attribute names to their values.
         """
-        
+
 
 class Modules(ABC):
 
     @abstractmethod
-    def add(self, name: str, arguments: Optional[dict[str, Any]] = None):
+    def add(self, name: str, attributes: Optional[dict[str, Any]] = None):
         """
         Adds a module to the modules collection.
 
         Args:
             name (str): The name of the module
-            arguments (Optional[dict[str, Any]], optional): Relevant arguments used to initialize the module. Defaults to None.
+            attributes (Optional[dict[str, Any]], optional): Relevant attributes of the module. Defaults to None.
         """
         ...
 
@@ -48,4 +52,14 @@ class Modules(ABC):
             list[Module]: The modules owned by the model as a list.
         """
 
+    @abstractmethod
+    def remove(self, module: Module):
+        """
+        Removes a module from the collection.
+        """
 
+    @abstractmethod
+    def clear(self):
+        """
+        Removes all modules from the collection
+        """

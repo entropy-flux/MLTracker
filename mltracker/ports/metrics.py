@@ -1,10 +1,20 @@
 from abc import ABC, abstractmethod
+from uuid import UUID
 from typing import Protocol 
 from typing import Optional
 from typing import Any
 
 class Metric(Protocol):
-    
+
+    @property
+    def id(self) -> UUID:
+        """
+        The globally unique identifier of the metric.
+
+        Returns:
+            UUID: The ID of the metric.
+        """
+
     @property
     def name(self) -> str:
         """
@@ -43,14 +53,14 @@ class Metric(Protocol):
         Returns:
             Optional[str]: The phase of the model in wich the metric was produced.
         """
-
+        
 
 class Metrics(ABC):
     
     @abstractmethod
     def add(self, name: str, value: Any, epoch: Optional[int] = None, phase: Optional[str] = None):
         """
-        Add a metric to the model. 
+        Add a metric to the collection. 
         
         Args:
             name (str): The name of the metric. 
@@ -62,12 +72,23 @@ class Metrics(ABC):
     @abstractmethod
     def list(self, name: Optional[str] = None) -> list[Metric]:
         """
-        Get a list of metrics of a model. 
+        Get a list of metrics in the collection. 
 
-        
         Args:
             name (Optional[str]): The name of the metrics to be listed.  
 
         Returns:
             list[Metric]: The list of metric of the model. 
+        """
+
+    @abstractmethod
+    def remove(self, metric: Metric):
+        """
+        Removes the given metric from the collection.        
+        """
+
+    @abstractmethod
+    def clear(self):
+        """
+        Removes all metrics from the collection.
         """

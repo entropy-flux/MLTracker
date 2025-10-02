@@ -1,0 +1,29 @@
+site_name: "PyMsgbus" 
+  
+theme:
+  name: material
+  features:
+    - content.code.copy
+    - content.code.select
+    - content.code.annotate 
+    - content.code.highlight
+
+
+markdown_extensions:
+  - pymdownx.highlight:
+      pygments_style: default
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+
+plugins:
+  - mkdocstrings:
+      handlers: 
+        python: {}
+
+nav:
+  - Home: index.md  
+  - Experiments: experiments.md
+  - Models: models.md
+  - Metrics: metrics.md
+  - Modules: modules.md
+  - Iterations: iterations.md 

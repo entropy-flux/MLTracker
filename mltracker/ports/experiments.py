@@ -1,10 +1,8 @@
 from uuid import UUID
 from abc import ABC, abstractmethod
 from typing import Protocol
-from typing import Optional
-
+from typing import Optional 
 from mltracker.ports.models import Models
-
 
 class Experiment(Protocol):
     """Defines a namespace for organizing machine learning models with scoped uniqueness.
@@ -43,7 +41,6 @@ class Experiment(Protocol):
         """
 
 
-
 class Experiments(ABC):
     """An abstract base class representing a collection of experiments. This class serves as 
     an interface for available backends or as a base class for a custom implementation.
@@ -57,6 +54,15 @@ class Experiments(ABC):
         
         read:
             Retrieves an experiment by its name if any.
+
+        update:
+            Updates an experiment's name.
+
+        delete:
+            Deletes an experiment by ID.
+
+        list:
+            List all experiments in the collection.
     """
 
     @abstractmethod
@@ -80,4 +86,31 @@ class Experiments(ABC):
         Returns:
             Optional[Experiment]: The experiment with the given name if any.
         """
-        
+
+
+    @abstractmethod
+    def update(self, id: UUID, name: str):
+        """Updates the name of an experiment.
+
+        Args:
+            id (UUID): The ID of the experiment to update.
+            name (str): The new name of the experiment.
+        """
+
+
+    @abstractmethod
+    def delete(self, id: UUID):
+        """Deletes the experiment with the given ID. 
+
+        Args:
+            id (UUID): The ID of the experiment to be retrieved.                    
+        """
+
+
+    @abstractmethod
+    def list(self) -> list[Experiment]:
+        """List the experiments in the collection.
+
+        Returns:
+            List[Experiment]: The list of experiments in the collection.
+        """
