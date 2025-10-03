@@ -31,6 +31,7 @@ class Models(Collection):
 
     def __init__(self, db: TinyDB, path: str):
         self.db = db
+        self.path = path
         self.table = self.db.table(path)
 
     def build(self, id: str | UUID, hash: str, name: Optional[str]) -> Model:
@@ -97,4 +98,4 @@ class Models(Collection):
             model.modules.clear()
             model.iterations.clear()
             model.epochs.drop()
-        self.table.truncate()
+        self.db.drop_table(self.path)

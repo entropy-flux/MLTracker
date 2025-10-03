@@ -17,6 +17,7 @@ class Metrics(Collection):
     
     def __init__(self, db: TinyDB, path: str):
         self.db = db
+        self.path = path
         self.table = self.db.table(path)
 
     def build(self, id: UUID | str, name: str, value: Any, epoch: Optional[int], phase: Optional[str]):
@@ -59,4 +60,4 @@ class Metrics(Collection):
 
     @override
     def clear(self):
-        self.table.truncate()
+        self.db.drop_table(self.path)

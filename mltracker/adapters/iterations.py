@@ -16,6 +16,7 @@ class Iterations(Collection):
 
     def __init__(self, db: TinyDB, path: str):
         self.db = db
+        self.path  = path
         self.table = self.db.table(path)
 
     def build(self, id: UUID | str, epoch: int) -> Iteration:
@@ -59,4 +60,4 @@ class Iterations(Collection):
         for item in self.table.all():
             iteration = self.build(item["id"], item["epoch"])
             iteration.modules.clear()
-        self.table.truncate()
+        self.db.drop_table(self.path)

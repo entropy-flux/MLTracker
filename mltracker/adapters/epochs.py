@@ -5,6 +5,7 @@ from tinydb import TinyDB, where
 class Epochs:
     def __init__(self, db: TinyDB, path: str):
         self.db = db
+        self.path = path
         self.table = self.db.table(path) 
         if not self.table.all():
             self.table.insert({"value": 0})
@@ -20,4 +21,4 @@ class Epochs:
             self.table.insert({"value": value})
 
     def drop(self):
-        self.table.truncate()
+        self.db.drop_table(self.path)
