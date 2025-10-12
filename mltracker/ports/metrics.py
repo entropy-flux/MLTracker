@@ -34,14 +34,14 @@ class Metric(Protocol):
         """
 
     @property
-    def epoch(self) -> Optional[int]:
+    def step(self) -> Optional[int]:
         """
-        An epoch is a discrete unit of time that marks a transition between 
+        An step is a discrete unit of time that marks a transition between 
         successive states of a machine learning model. Each metric value is associated 
-        with some stage of the model indexed by the epoch. 
+        with some stage of the model indexed by the step. 
 
         Returns:
-            int: The epoch of the metric. 
+            int: The step of the metric. 
         """
 
     @property
@@ -58,14 +58,14 @@ class Metric(Protocol):
 class Metrics(ABC):
     
     @abstractmethod
-    def add(self, name: str, value: Any, epoch: Optional[int] = None, phase: Optional[str] = None):
+    def log(self, name: str, value: Any, step: Optional[int] = None, phase: Optional[str] = None):
         """
         Add a metric to the collection. 
         
         Args:
             name (str): The name of the metric. 
             value (Any): The value of the metric.
-            epoch (int): The epoch in wich the metric was produced. 
+            step (int): The step in wich the metric was produced. 
             phase (Optional[str]): The phase in wich the metric was produced. 
         """
 

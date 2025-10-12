@@ -37,18 +37,29 @@ class Model(Protocol):
         """
 
     @property
-    def epoch(self) -> Optional[int]:
-        """An epoch is a unit of time that marks a transition between 
+    def description(self) -> Optional[str]:
+        """A brief textual explanation that provides additional context or details 
+        about the model. It can include information such as the models purpose, 
+        configuration, architecture, or any other relevant metadata that helps 
+        describe its role within an experiment.
+
+        Returns:
+            Optional[str]: The description of the model if available.
+        """
+ 
+    @property
+    def step(self) -> Optional[int]:
+        """An step is a unit of time that marks a transition between 
         successive states of the model. 
 
         Returns:
-            Optional[int]: The epochs that the model have been iterated if
+            Optional[int]: The steps that the model have been iterated if
             stored.
         """
 
-    @epoch.setter
-    def epoch(self, value):
-        """Set the epoch of the model to the given value."""
+    @step.setter
+    def step(self, value):
+        """Set the step of the model to the given value."""
 
 
     @property
@@ -74,7 +85,7 @@ class Model(Protocol):
         """
         Each model owns a collection of iterations that represents discrete steps 
         in the model's training or evaluation process, typically corresponding to 
-        one epoch.
+        one step.
 
         This accessor provides management of these iterations, allowing creation,
         retrieval, and listing of iterations that capture the model's progression
@@ -88,7 +99,7 @@ class Model(Protocol):
 class Models(ABC):
     
     @abstractmethod
-    def create(self, hash: str, name: Optional[str] = None) -> Model:
+    def create(self, hash: str, name: Optional[str] = None, description: Optional[str] = None) -> Model:
         """
         Creates a record of a model in the database, retrieving
         an instance of the entity representing it. 
@@ -96,6 +107,7 @@ class Models(ABC):
         Args:
             hash (Any): A locally unique identifier for the model. 
             name (Optional[str]): The name of the model.
+            description (Optional[str]): Optional description for the model.
 
         Returns:
             Model: The entity representing a model. 

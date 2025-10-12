@@ -1,8 +1,6 @@
-from tinydb import TinyDB, where 
+from tinydb import TinyDB, where  
 
-from tinydb import TinyDB, where
-
-class Epochs:
+class Steps:
     def __init__(self, db: TinyDB, path: str):
         self.db = db
         self.path = path

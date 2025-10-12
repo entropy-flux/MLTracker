@@ -33,7 +33,7 @@ class Module(Protocol):
 class Modules(ABC):
 
     @abstractmethod
-    def add(self, name: str, attributes: Optional[dict[str, Any]] = None):
+    def log(self, name: str, attributes: Optional[dict[str, Any]] = None):
         """
         Adds a module to the modules collection.
 

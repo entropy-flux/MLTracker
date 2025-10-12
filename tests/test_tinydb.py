@@ -93,21 +93,21 @@ def test_experiment_metrics(db: TinyDB):
     model2 = experiment.models.create(hash="hash2", name="model2")
     model3 = experiment.models.create(hash="hash3", name="model3")
 
-    model1.metrics.add(name="accuracy", value=0.80, epoch=1, phase="train")
-    model1.metrics.add(name="accuracy", value=0.85, epoch=2, phase="train")
-    model1.metrics.add(name="accuracy", value=0.88, epoch=3, phase="val")
-    model1.metrics.add(name="accuracy", value=0.90, epoch=4, phase="val")
-    model1.metrics.add(name="loss", value=0.40, epoch=1, phase="train")
-    model1.metrics.add(name="loss", value=0.30, epoch=2, phase="train")
-    model1.metrics.add(name="loss", value=0.25, epoch=3, phase="val")
-    model1.metrics.add(name="loss", value=0.20, epoch=4, phase="val")
-    model1.metrics.add(name="precision", value=0.70, epoch=2, phase="val")
-    model1.metrics.add(name="recall", value=0.65, epoch=2, phase="val")
+    model1.metrics.log(name="accuracy", value=0.80, step=1, phase="train")
+    model1.metrics.log(name="accuracy", value=0.85, step=2, phase="train")
+    model1.metrics.log(name="accuracy", value=0.88, step=3, phase="val")
+    model1.metrics.log(name="accuracy", value=0.90, step=4, phase="val")
+    model1.metrics.log(name="loss", value=0.40, step=1, phase="train")
+    model1.metrics.log(name="loss", value=0.30, step=2, phase="train")
+    model1.metrics.log(name="loss", value=0.25, step=3, phase="val")
+    model1.metrics.log(name="loss", value=0.20, step=4, phase="val")
+    model1.metrics.log(name="precision", value=0.70, step=2, phase="val")
+    model1.metrics.log(name="recall", value=0.65, step=2, phase="val")
  
-    model2.metrics.add(name="accuracy", value=0.50, epoch=1)
-    model2.metrics.add(name="loss", value=1.25, epoch=1)
-    model2.metrics.add(name="f1", value=0.55, epoch=1, phase="train")
-    model2.metrics.add(name="f1", value=0.60, epoch=2, phase="val")
+    model2.metrics.log(name="accuracy", value=0.50, step=1)
+    model2.metrics.log(name="loss", value=1.25, step=1)
+    model2.metrics.log(name="f1", value=0.55, step=1, phase="train")
+    model2.metrics.log(name="f1", value=0.60, step=2, phase="val")
 
     all_metrics = model1.metrics.list()
     assert len(all_metrics) == 10
@@ -116,13 +116,13 @@ def test_experiment_metrics(db: TinyDB):
     acc_metrics = model1.metrics.list(name="accuracy")
     assert len(acc_metrics) == 4
     assert [m.value for m in acc_metrics] == [0.80, 0.85, 0.88, 0.90]
-    assert [m.epoch for m in acc_metrics] == [1, 2, 3, 4]
+    assert [m.step for m in acc_metrics] == [1, 2, 3, 4]
     assert [m.phase for m in acc_metrics] == ["train", "train", "val", "val"]
  
     loss_metrics = model1.metrics.list(name="loss")
     assert len(loss_metrics) == 4
     assert [m.value for m in loss_metrics] == [0.40, 0.30, 0.25, 0.20]
-    assert [m.epoch for m in loss_metrics] == [1, 2, 3, 4]
+    assert [m.step for m in loss_metrics] == [1, 2, 3, 4]
     assert [m.phase for m in loss_metrics] == ["train", "train", "val", "val"]
  
     prec_metrics = model1.metrics.list(name="precision")
@@ -150,8 +150,8 @@ def test_experiment_metrics(db: TinyDB):
     assert [m.name for m in m2_all] == ["accuracy", "loss", "f1", "f1"]
  
     assert len(model3.metrics.list()) == 0
-    model3.metrics.add(name="auc", value=0.72, epoch=1)
-    model3.metrics.add(name="auc", value=0.75, epoch=2, phase="val")
+    model3.metrics.log(name="auc", value=0.72, step=1)
+    model3.metrics.log(name="auc", value=0.75, step=2, phase="val")
 
     auc_metrics = model3.metrics.list(name="auc")
     assert len(auc_metrics) == 2
@@ -162,15 +162,15 @@ def test_experiment_metrics(db: TinyDB):
     assert len(model3.metrics.list()) == 2
 
 
-def test_model_epochs(db: TinyDB):
+def test_model_steps(db: TinyDB):
     repository = Experiments(db)
-    experiment = repository.create("experiment_with_epochs")
+    experiment = repository.create("experiment_with_steps")
     model = experiment.models.create(hash="model_hash", name="model_name")
-    model.epoch += 1
-    model.epoch += 1
+    model.step += 1
+    model.step += 1
 
     model = experiment.models.read(hash="model_hash")
-    assert model.epoch == 2
+    assert model.step == 2
 
 
 def test_model_modules(db: TinyDB): 
@@ -180,8 +180,8 @@ def test_model_modules(db: TinyDB):
 
     assert model.modules.list() == []
 
-    model.modules.add(name="module1", attributes={"type": "conv", "layers": 3})
-    model.modules.add(name="module2", attributes={"type": "dense", "units": 128})
+    model.modules.log(name="module1", attributes={"type": "conv", "layers": 3})
+    model.modules.log(name="module2", attributes={"type": "dense", "units": 128})
 
     all_modules = model.modules.list()
     assert len(all_modules) == 2
@@ -209,8 +209,8 @@ def test_model_iterations(db: TinyDB):
 
     assert model.iterations.list() == []
 
-    model.iterations.create(epoch=1)
-    model.iterations.create(epoch=2)
+    model.iterations.create(step=1)
+    model.iterations.create(step=2)
 
     all_iterations = model.iterations.list()
     assert len(all_iterations) == 2
@@ -219,12 +219,12 @@ def test_model_iterations(db: TinyDB):
     iter2 = model.iterations.get(2)
 
     assert iter1 is not None
-    assert iter1.epoch == 1
+    assert iter1.step == 1
     assert iter2 is not None
-    assert iter2.epoch == 2
+    assert iter2.step == 2
 
-    iter1.modules.add(name="moduleA", attributes={"type": "conv"})
-    iter1.modules.add(name="moduleB", attributes={"type": "dense"})
+    iter1.modules.log(name="moduleA", attributes={"type": "conv"})
+    iter1.modules.log(name="moduleB", attributes={"type": "dense"})
 
     modules_iter1 = iter1.modules.list()
     assert len(modules_iter1) == 2
@@ -234,7 +234,7 @@ def test_model_iterations(db: TinyDB):
     model.iterations.remove(iter2)
     remaining_iterations = model.iterations.list()
     assert len(remaining_iterations) == 1
-    assert remaining_iterations[0].epoch == 1
+    assert remaining_iterations[0].step == 1
 
     model.iterations.clear()
     assert model.iterations.list() == []

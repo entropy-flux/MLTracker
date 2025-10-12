@@ -31,23 +31,23 @@ model.modules.add(name="linear_layer", attributes={"in_size": 256, "out_size": 1
 Track metrics:
 
 ```python
-model.metrics.add(name="accuracy", value=0.85, epoch=1, phase="train")
-model.metrics.add(name="loss", value=0.25, epoch=1, phase="train") 
-model.metrics.add(name="accuracy", value=0.87, epoch=1, phase="test")
-model.metrics.add(name="loss", value=0.24, epoch=1, phase="test")
-model.epoch += 1
+model.metrics.add(name="accuracy", value=0.85, step=1, phase="train")
+model.metrics.add(name="loss", value=0.25, step=1, phase="train") 
+model.metrics.add(name="accuracy", value=0.87, step=1, phase="test")
+model.metrics.add(name="loss", value=0.24, step=1, phase="test")
+model.step += 1
 
-model.metrics.add(name="accuracy", value=0.89, epoch=2, phase="train")
-model.metrics.add(name="loss", value=0.29, epoch=2, phase="train")
-model.metrics.add(name="accuracy", value=0.88, epoch=2, phase="test")
-model.metrics.add(name="loss", value=0.26, epoch=2, phase="test")
-model.epoch += 1
+model.metrics.add(name="accuracy", value=0.89, step=2, phase="train")
+model.metrics.add(name="loss", value=0.29, step=2, phase="train")
+model.metrics.add(name="accuracy", value=0.88, step=2, phase="test")
+model.metrics.add(name="loss", value=0.26, step=2, phase="test")
+model.step += 1
 ```
 
 Track extra metadata:
 
 ```python
-iteration = model.iterations.create(epoch=2)
+iteration = model.iterations.create(step=2)
 iteration.modules.add(name="SGD", attributes={"lr"=0.01})
 ```
 
@@ -55,7 +55,7 @@ Then just retrieve what you need.
 
 ```python
 model = experiment.models.read(hash="123456")
-print(model.epoch)
+print(model.step)
 
 for module in model.modules.list():
     print(module.name, module.attributes)

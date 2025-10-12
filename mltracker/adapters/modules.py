@@ -27,7 +27,7 @@ class Modules(Collection):
         )
     
     @override
-    def add(self, name: str, attributes: Optional[dict[str, Any]] = None):
+    def log(self, name: str, attributes: Optional[dict[str, Any]] = None):
         id = uuid4()
         self.table.insert({
             'id': str(id),

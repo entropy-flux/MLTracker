@@ -9,37 +9,37 @@ from mltracker.adapters.modules import Modules
 @dataclass
 class Iteration:
     id: UUID
-    epoch: int
+    step: int
     modules: Modules
 
-class Iterations(Collection): 
 
+class Iterations(Collection): 
     def __init__(self, db: TinyDB, path: str):
         self.db = db
         self.path  = path
         self.table = self.db.table(path)
 
-    def build(self, id: UUID | str, epoch: int) -> Iteration:
+    def build(self, id: UUID | str, step: int) -> Iteration:
         return Iteration(
             id=id if isinstance(id, UUID) else UUID(id),
-            epoch=epoch, 
+            step=step, 
             modules = Modules(self.db, f"/iterations/{str(id)}/modules"),
         )
 
     @override
-    def create(self, epoch: int) -> Iteration:
+    def create(self, step: int) -> Iteration:
         id = uuid4()
         self.table.insert({
             "id": str(id), 
-            "epoch": epoch, 
+            "step": step, 
         })
-        return self.build(id, epoch)
+        return self.build(id, step)
 
     @override
-    def get(self, epoch: int) -> Optional[Iteration]:
-        result = self.table.get(where("epoch") == epoch)
+    def get(self, step: int) -> Optional[Iteration]:
+        result = self.table.get(where("step") == step)
         if result:
-            return self.build(result["id"], result["epoch"])
+            return self.build(result["id"], result["step"])
         return None
 
     @override
@@ -47,7 +47,7 @@ class Iterations(Collection):
         records = self.table.all()
         return [ self.build(
             id=record["id"], 
-            epoch=record["epoch"], 
+            step=record["step"], 
         ) for record in records ]
 
     @override
@@ -58,6 +58,6 @@ class Iterations(Collection):
     @override
     def clear(self):
         for item in self.table.all():
-            iteration = self.build(item["id"], item["epoch"])
+            iteration = self.build(item["id"], item["step"])
             iteration.modules.clear()
         self.db.drop_table(self.path)

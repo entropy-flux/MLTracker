@@ -10,7 +10,7 @@ class Metric:
     id: UUID
     name: str
     value: Any
-    epoch: Optional[int] = None
+    step: Optional[int] = None
     phase: Optional[str] = None
 
 class Metrics(Collection):
@@ -20,23 +20,23 @@ class Metrics(Collection):
         self.path = path
         self.table = self.db.table(path)
 
-    def build(self, id: UUID | str, name: str, value: Any, epoch: Optional[int], phase: Optional[str]):
+    def build(self, id: UUID | str, name: str, value: Any, step: Optional[int], phase: Optional[str]):
         return Metric(
             id=id if isinstance(id, UUID) else UUID(id), 
             name=name, 
             value=value, 
-            epoch=epoch, 
+            step=step, 
             phase=phase
         )        
 
     @override
-    def add(self, name: str, value: Any, epoch: Optional[int] = None, phase: Optional[str] = None):
+    def log(self, name: str, value: Any, step: int, phase: Optional[str] = None):
         id = uuid4()
         self.table.insert({
             "id": str(id),
             "name": name,
             "value": value,
-            "epoch": epoch,
+            "step": step,
             "phase": phase
         })
 
@@ -50,7 +50,7 @@ class Metrics(Collection):
             id=record["id"], 
             name =record["name"], 
             value=record["value"], 
-            epoch=record.get("epoch"), 
+            step=record.get("step"), 
             phase=record.get("phase")
         ) for record in records ]
 
