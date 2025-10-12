@@ -291,15 +291,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mltracker.ports.metrics.Metric.epoch" class="md-nav__link">
-    <span class="md-ellipsis">
-      epoch
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#mltracker.ports.metrics.Metric.id" class="md-nav__link">
     <span class="md-ellipsis">
       id
@@ -321,6 +312,15 @@
   <a href="#mltracker.ports.metrics.Metric.phase" class="md-nav__link">
     <span class="md-ellipsis">
       phase
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mltracker.ports.metrics.Metric.step" class="md-nav__link">
+    <span class="md-ellipsis">
+      step
     </span>
   </a>
   
@@ -351,15 +351,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mltracker.ports.metrics.Metrics.add" class="md-nav__link">
-    <span class="md-ellipsis">
-      add
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#mltracker.ports.metrics.Metrics.clear" class="md-nav__link">
     <span class="md-ellipsis">
       clear
@@ -372,6 +363,15 @@
   <a href="#mltracker.ports.metrics.Metrics.list" class="md-nav__link">
     <span class="md-ellipsis">
       list
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mltracker.ports.metrics.Metrics.log" class="md-nav__link">
+    <span class="md-ellipsis">
+      log
     </span>
   </a>
   
@@ -489,15 +489,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mltracker.ports.metrics.Metric.epoch" class="md-nav__link">
-    <span class="md-ellipsis">
-      epoch
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#mltracker.ports.metrics.Metric.id" class="md-nav__link">
     <span class="md-ellipsis">
       id
@@ -519,6 +510,15 @@
   <a href="#mltracker.ports.metrics.Metric.phase" class="md-nav__link">
     <span class="md-ellipsis">
       phase
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mltracker.ports.metrics.Metric.step" class="md-nav__link">
+    <span class="md-ellipsis">
+      step
     </span>
   </a>
   
@@ -549,15 +549,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mltracker.ports.metrics.Metrics.add" class="md-nav__link">
-    <span class="md-ellipsis">
-      add
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#mltracker.ports.metrics.Metrics.clear" class="md-nav__link">
     <span class="md-ellipsis">
       clear
@@ -570,6 +561,15 @@
   <a href="#mltracker.ports.metrics.Metrics.list" class="md-nav__link">
     <span class="md-ellipsis">
       list
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mltracker.ports.metrics.Metrics.log" class="md-nav__link">
+    <span class="md-ellipsis">
+      log
     </span>
   </a>
   
@@ -667,53 +667,6 @@
 
 
 
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h3 id="mltracker.ports.metrics.Metric.epoch" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">epoch</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>An epoch is a discrete unit of time that marks a transition between 
-successive states of a machine learning model. Each metric value is associated 
-with some stage of the model indexed by the epoch. </p>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-<th>Name</th>          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-<td><code>int</code></td>            <td>
-                  <code><span title="typing.Optional">Optional</span>[<span title="int">int</span>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The epoch of the metric.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-    </div>
-
-</div>
 
 <div class="doc doc-object doc-attribute">
 
@@ -855,6 +808,53 @@ interpret the metric in context of the model's lifecycle. </p>
 
 
 
+<h3 id="mltracker.ports.metrics.Metric.step" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">step</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>An step is a discrete unit of time that marks a transition between 
+successive states of a machine learning model. Each metric value is associated 
+with some stage of the model indexed by the step. </p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>int</code></td>            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The step of the metric.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
 <h3 id="mltracker.ports.metrics.Metric.value" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">value</span></code>
 
@@ -943,107 +943,6 @@ interpret the metric in context of the model's lifecycle. </p>
 
 
 
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="mltracker.ports.metrics.Metrics.add" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">epoch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Add a metric to the collection. </p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>name</code>
-            </td>
-            <td>
-                  <code><span title="str">str</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The name of the metric. </p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>value</code>
-            </td>
-            <td>
-                  <code><span title="typing.Any">Any</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The value of the metric.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>epoch</code>
-            </td>
-            <td>
-                  <code><span title="int">int</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The epoch in wich the metric was produced. </p>
-              </div>
-            </td>
-            <td>
-                  <code>None</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>phase</code>
-            </td>
-            <td>
-                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The phase in wich the metric was produced.</p>
-              </div>
-            </td>
-            <td>
-                  <code>None</code>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    </div>
-
-</div>
 
 <div class="doc doc-object doc-function">
 
@@ -1137,6 +1036,107 @@ interpret the metric in context of the model's lifecycle. </p>
               <div class="doc-md-description">
                 <p>list[Metric]: The list of metric of the model.</p>
               </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="mltracker.ports.metrics.Metrics.log" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">log</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Add a metric to the collection. </p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>name</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the metric. </p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>value</code>
+            </td>
+            <td>
+                  <code><span title="typing.Any">Any</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The value of the metric.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>step</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The step in wich the metric was produced. </p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>phase</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The phase in wich the metric was produced.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
             </td>
           </tr>
       </tbody>

@@ -269,9 +269,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mltracker.ports.models.Model.epoch" class="md-nav__link">
+  <a href="#mltracker.ports.models.Model.description" class="md-nav__link">
     <span class="md-ellipsis">
-      epoch
+      description
     </span>
   </a>
   
@@ -326,6 +326,15 @@
   <a href="#mltracker.ports.models.Model.name" class="md-nav__link">
     <span class="md-ellipsis">
       name
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mltracker.ports.models.Model.step" class="md-nav__link">
+    <span class="md-ellipsis">
+      step
     </span>
   </a>
   
@@ -516,9 +525,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mltracker.ports.models.Model.epoch" class="md-nav__link">
+  <a href="#mltracker.ports.models.Model.description" class="md-nav__link">
     <span class="md-ellipsis">
-      epoch
+      description
     </span>
   </a>
   
@@ -573,6 +582,15 @@
   <a href="#mltracker.ports.models.Model.name" class="md-nav__link">
     <span class="md-ellipsis">
       name
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mltracker.ports.models.Model.step" class="md-nav__link">
+    <span class="md-ellipsis">
+      step
     </span>
   </a>
   
@@ -726,12 +744,11 @@
 
 
 
-<h3 id="mltracker.ports.models.Model.epoch" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">epoch</span></code>
+<h3 id="mltracker.ports.models.Model.description" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">description</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
-      <small class="doc doc-label doc-label-writable"><code>writable</code></small>
   </span>
 
 </h3>
@@ -739,8 +756,10 @@
 
     <div class="doc doc-contents ">
 
-        <p>An epoch is a unit of time that marks a transition between 
-successive states of the model. </p>
+        <p>A brief textual explanation that provides additional context or details 
+about the model. It can include information such as the models purpose, 
+configuration, architecture, or any other relevant metadata that helps 
+describe its role within an experiment.</p>
 
 
     <p><span class="doc-section-title">Returns:</span></p>
@@ -754,21 +773,11 @@ successive states of the model. </p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="typing.Optional">Optional</span>[<span title="int">int</span>]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Optional[int]: The epochs that the model have been iterated if</p>
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="typing.Optional">Optional</span>[<span title="int">int</span>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>stored.</p>
+                <p>Optional[str]: The description of the model if available.</p>
               </div>
             </td>
           </tr>
@@ -889,7 +898,7 @@ referencing the model outside the experiment namespace. </p>
 
         <p>Each model owns a collection of iterations that represents discrete steps 
 in the model's training or evaluation process, typically corresponding to 
-one epoch.</p>
+one step.</p>
 <p>This accessor provides management of these iterations, allowing creation,
 retrieval, and listing of iterations that capture the model's progression
 over time.</p>
@@ -1056,6 +1065,63 @@ over time.</p>
 
 </div>
 
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="mltracker.ports.models.Model.step" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">step</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+      <small class="doc doc-label doc-label-writable"><code>writable</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>An step is a unit of time that marks a transition between 
+successive states of the model. </p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional[int]: The steps that the model have been iterated if</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>stored.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
 
 
 
@@ -1108,7 +1174,7 @@ over time.</p>
 
 
 <h3 id="mltracker.ports.models.Models.create" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">create</span><span class="p">(</span><span class="nb">hash</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">create</span><span class="p">(</span><span class="nb">hash</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
@@ -1160,6 +1226,22 @@ an instance of the entity representing it. </p>
             <td>
               <div class="doc-md-description">
                 <p>The name of the model.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>description</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional description for the model.</p>
               </div>
             </td>
             <td>

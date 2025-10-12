@@ -333,18 +333,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mltracker.ports.iterations.Iteration.epoch" class="md-nav__link">
+  <a href="#mltracker.ports.iterations.Iteration.modules" class="md-nav__link">
     <span class="md-ellipsis">
-      epoch
+      modules
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#mltracker.ports.iterations.Iteration.modules" class="md-nav__link">
+  <a href="#mltracker.ports.iterations.Iteration.step" class="md-nav__link">
     <span class="md-ellipsis">
-      modules
+      step
     </span>
   </a>
   
@@ -469,18 +469,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mltracker.ports.iterations.Iteration.epoch" class="md-nav__link">
+  <a href="#mltracker.ports.iterations.Iteration.modules" class="md-nav__link">
     <span class="md-ellipsis">
-      epoch
+      modules
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#mltracker.ports.iterations.Iteration.modules" class="md-nav__link">
+  <a href="#mltracker.ports.iterations.Iteration.step" class="md-nav__link">
     <span class="md-ellipsis">
-      modules
+      step
     </span>
   </a>
   
@@ -614,7 +614,7 @@
 
         <p>An iteration represents a single step or cycle in the training or evaluation
 of a model. It typically corresponds to one pass through the training
-dataset (an epoch) or a defined unit of model progression.</p>
+dataset (an step) or a defined unit of model progression.</p>
 <p>Iterations can own modules that are associated with the training or evaluation
 process itself, rather than the model's core architecture.</p>
 
@@ -635,53 +635,6 @@ process itself, rather than the model's core architecture.</p>
 
 
 
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h3 id="mltracker.ports.iterations.Iteration.epoch" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">epoch</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>The numeric identifier of this iteration in the training or evaluation
-process. Usually corresponds to the number of passes completed over
-the dataset.</p>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-<th>Name</th>          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-<td><code>int</code></td>            <td>
-                  <code><span title="typing.Optional">Optional</span>[<span title="int">int</span>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The epoch number of this iteration.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-    </div>
-
-</div>
 
 <div class="doc doc-object doc-attribute">
 
@@ -719,6 +672,53 @@ itself, but to it's training or evaluation process. </p>
             <td>
               <div class="doc-md-description">
                 <p>A collection of modules.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="mltracker.ports.iterations.Iteration.step" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">step</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>The numeric identifier of this iteration in the training or evaluation
+process. Usually corresponds to the number of passes completed over
+the dataset.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>int</code></td>            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The step number of this iteration.</p>
               </div>
             </td>
           </tr>
@@ -806,7 +806,7 @@ Provides an interface for creating, retrieving, and listing iterations.</p>
 
 
 <h3 id="mltracker.ports.iterations.Iterations.create" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">create</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">create</span><span class="p">(</span><span class="n">step</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
@@ -834,14 +834,14 @@ modules and returns it.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                <code>epoch</code>
+                <code>step</code>
             </td>
             <td>
                   <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The epoch number of the iteration to create.</p>
+                <p>The step number of the iteration to create.</p>
               </div>
             </td>
             <td>
@@ -860,7 +860,7 @@ modules and returns it.</p>
 
 
 <h3 id="mltracker.ports.iterations.Iterations.get" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">get</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">get</span><span class="p">(</span><span class="n">step</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
@@ -871,7 +871,7 @@ modules and returns it.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Retrieves a list of iterations for a given epoch number.</p>
+        <p>Retrieves a list of iterations for a given step number.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -887,14 +887,14 @@ modules and returns it.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                <code>epoch</code>
+                <code>step</code>
             </td>
             <td>
                   <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The epoch number of the iteration to retrieve.</p>
+                <p>The step number of the iteration to retrieve.</p>
               </div>
             </td>
             <td>
